@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .bg {
+            background-image: url('bg/blackhole_by_wlop_dhluyo1.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .profile {
+            background-color: rgba(40, 42, 54, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            color: #ffffff; /* Add this line to set text color to white */
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-name {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .profile-title {
+            color: #bd93f9; /* Change to a lighter color from Dracula theme */
+            margin-bottom: 20px;
+        }
+        .profile-info {
+            margin-bottom: 20px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .info-item i {
+            width: 30px;
+            color: #3498db;
+        }
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 24px;
+            color: #3498db;
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #2980b9;
+        }
+
+        .skill-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .skill-table td {
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        .skill-table td:first-child {
+            width: 40px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .skill-table .fa-js { color: #F7DF1E; }
+        .skill-table .fa-html5 { color: #E34F26; }
+        .skill-table .fa-css3-alt { color: #1572B6; }
+        .skill-table .devicon-cplusplus-plain { color: #00599C; }
+        .skill-table .devicon-csharp-plain { color: #239120; }
+        .skill-table .fa-python { color: #3776AB; }
+
+        .skill-bar {
+            width: 100%;
+            background-color: #f0f0f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: #3498db;
+            border-radius: 5px;
+        }
+
+        .skill-table td:last-child {
+            width: 50px;
+            text-align: right;
+            font-weight: bold;
+            color: #ffffff; /* Add this line to ensure percentage text is white */
+        }
+
+        .github-profile {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .github-stats {
+            margin-top: 10px;
+        }
+
+        .github-stats img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="container">
+        <div class="profile">
+            <div class="profile-header">
+                <img src="bg/avatarjpg.jpg" alt="Profile Picture" class="profile-image">
+                <h1 class="profile-name">Vu Duc Long (Herry Vu)</h1>
+                <p class="profile-title">FE Developer</p>
+            </div>
+            <div class="profile-info">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>herryvu.dev@gmail.com</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Yen Dinh, Thanh Hoa, VietNam</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>29/07</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>4 years of experience</span>
+                </div>
+            </div>
+            <div class="skills">
+                <h2 style="text-align: center;">Programming Skills</h2>
+                <table class="skill-table">
+                    <tr>
+                        <td><i class="fab fa-js"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%;"></div>
+                            </div>
+                        </td>
+                        <td>90%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-html5"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 95%;"></div>
+                            </div>
+                        </td>
+                        <td>95%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-css3-alt"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%;"></div>
+                            </div>
+                        </td>
+                        <td>85%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="devicon-cplusplus-plain"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 70%;"></div>
+                            </div>
+                        </td>
+                        <td>70%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="devicon-csharp-plain"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 65%;"></div>
+                            </div>
+                        </td>
+                        <td>65%</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fab fa-python"></i></td>
+                        <td>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 75%;"></div>
+                            </div>
+                        </td>
+                        <td>75%</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="github-profile">
+                <h2>GitHub Profile</h2>
+                <div class="github-stats">
+                    <img src="https://github-readme-stats.vercel.app/api?username=kuronight29&show_icons=true&theme=radical" alt="GitHub Stats">
+                </div>
+            </div>
+            <div class="social-links">
+                <h2>Connect with me</h2>
+                <a href="https://github.com/kuronight29" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://discord.com/users/longvuuuu" target="_blank" class="social-icon">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://twitter.com/kuronight29" target="_blank" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100086515356897" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #bd93f9;">Background image by <a href="https://www.deviantart.com/wlop/gallery" target="_blank" style="color: #bd93f9;">WLOP</a></p>
+        </div>
+    </div>
+</body>
+</html>
