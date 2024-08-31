@@ -147,9 +147,109 @@
             max-width: 100%;
             height: auto;
         }
+
+        /* Add these new styles for the navigation bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(40, 42, 54, 0.9);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .navbar a {
+            color: #f8f8f2;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #bd93f9;
+        }
+        .navbar a.active {
+            color: #ff79c6;
+        }
+        /* Adjust container top margin to account for navbar */
+        .container {
+            margin-top: 60px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(40, 42, 54, 0.9);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .navbar a {
+            color: #f8f8f2;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #bd93f9;
+        }
+        .navbar a.active {
+            color: #ff79c6;
+        }
+        /* Adjust container top margin to account for navbar */
+        .container {
+            margin-top: 60px;
+        }
+
+        .navbar {
+            position: relative;
+        }
+        .navbar .slider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background-color: #ff79c6;
+            transition: all 0.3s ease;
+        }
+        .navbar a {
+            position: relative;
+            z-index: 1;
+        }
+        .navbar a.active {
+            color: #ff79c6;
+        }
+
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="active">Profile</a></li>
+            <li><a href="resources.html">Resources</a></li>
+        </ul>
+        <div class="slider"></div>
+    </nav>
     <div class="bg"></div>
     <div class="container">
         <div class="profile">
@@ -259,5 +359,28 @@
             <p style="text-align: center; margin-top: 20px; font-size: 12px; color: #bd93f9;">Background image by <a href="https://www.deviantart.com/wlop/gallery" target="_blank" style="color: #bd93f9;">WLOP</a></p>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.navbar .slider');
+            const activeLink = document.querySelector('.navbar a.active');
+            
+            function updateSlider(link) {
+                slider.style.width = `${link.offsetWidth}px`;
+                slider.style.left = `${link.offsetLeft}px`;
+            }
+
+            updateSlider(activeLink);
+
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    updateSlider(this);
+                });
+            });
+
+            document.querySelector('.navbar').addEventListener('mouseleave', function() {
+                updateSlider(activeLink);
+            });
+        });
+    </script>
 </body>
 </html>
