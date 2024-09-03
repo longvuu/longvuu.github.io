@@ -10,33 +10,75 @@
         .resources {
             background-color: rgba(40, 42, 54, 0.9);
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 800px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            max-width: 900px;
             width: 100%;
             color: #ffffff;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
         .resources h1 {
             text-align: center;
             color: #bd93f9;
+            grid-column: 1 / -1;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .resource-category {
+            background-color: rgba(68, 71, 90, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .resource-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         .resources h2 {
             color: #ff79c6;
-            margin-top: 20px;
+            margin-top: 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid #ff79c6;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
         .resources ul {
             list-style-type: none;
             padding-left: 0;
+            margin: 0;
         }
         .resources li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .resources a {
             color: #8be9fd;
             text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
         }
         .resources a:hover {
-            text-decoration: underline;
+            color: #50fa7b;
+        }
+        .resources a i {
+            width: 24px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            grid-column: 1 / -1;
+        }
+        .back-link a {
+            color: #bd93f9;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #ff79c6;
         }
 
         /* Add these new styles for the navigation bar */
@@ -86,14 +128,19 @@
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
-            background-image: url('bg/blackhole_by_wlop_dhluyo1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: brightness(0.7);
-            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
         }
         .container {
             display: flex;
@@ -124,6 +171,20 @@
         .navbar a.active {
             color: #ff79c6;
         }
+
+        /* Add this new style for the fallback background image */
+        .bg-fallback {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image: url('bg/background.jpg');
+            background-size: cover;
+            background-position: center;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -135,39 +196,70 @@
         </ul>
         <div class="slider"></div>
     </nav>
-    <div class="bg"></div>
+    <div class="bg">
+        <video autoplay loop muted playsinline>
+            <source src="bg/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="bg-fallback"></div>
     <div class="container">
         <div class="resources">
             <h1>Learning Resources</h1>
             
-            <h2>Web Development</h2>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/" target="_blank">MDN Web Docs</a></li>
-                <li><a href="https://www.freecodecamp.org/" target="_blank">freeCodeCamp</a></li>
-                <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a></li>
-            </ul>
+            <div class="resource-category">
+                <h2>Web Development</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/" target="_blank"><i class="fas fa-book"></i> MDN Web Docs</a></li>
+                    <li><a href="https://www.freecodecamp.org/" target="_blank"><i class="fas fa-laptop-code"></i> freeCodeCamp</a></li>
+                    <li><a href="https://www.w3schools.com/" target="_blank"><i class="fas fa-graduation-cap"></i> W3Schools</a></li>
+                </ul>
+            </div>
 
-            <h2>JavaScript</h2>
-            <ul>
-                <li><a href="https://javascript.info/" target="_blank">JavaScript.info</a></li>
-                <li><a href="https://eloquentjavascript.net/" target="_blank">Eloquent JavaScript</a></li>
-            </ul>
+            <div class="resource-category">
+                <h2>JavaScript</h2>
+                <ul>
+                    <li><a href="https://javascript.info/" target="_blank"><i class="fab fa-js"></i> JavaScript.info</a></li>
+                    <li><a href="https://eloquentjavascript.net/" target="_blank"><i class="fas fa-book-open"></i> Eloquent JavaScript</a></li>
+                </ul>
+            </div>
 
-            <h2>Python</h2>
-            <ul>
-                <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Python Official Tutorial</a></li>
-                <li><a href="https://automatetheboringstuff.com/" target="_blank">Automate the Boring Stuff with Python</a></li>
-            </ul>
+            <div class="resource-category">
+                <h2>Python</h2>
+                <ul>
+                    <li><a href="https://docs.python.org/3/tutorial/" target="_blank"><i class="fab fa-python"></i> Python Official Tutorial</a></li>
+                    <li><a href="https://automatetheboringstuff.com/" target="_blank"><i class="fas fa-robot"></i> Automate the Boring Stuff with Python</a></li>
+                </ul>
+            </div>
 
-            <h2>C++ and C#</h2>
-            <ul>
-                <li><a href="https://www.learncpp.com/" target="_blank">LearnCpp.com</a></li>
-                <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank">C# Documentation</a></li>
-            </ul>
+            <div class="resource-category">
+                <h2>C++ and C#</h2>
+                <ul>
+                    <li><a href="https://www.learncpp.com/" target="_blank"><i class="devicon-cplusplus-plain"></i> LearnCpp.com</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank"><i class="devicon-csharp-plain"></i> C# Documentation</a></li>
+                </ul>
+            </div>
 
-            <p style="text-align: center; margin-top: 20px;">
-                <a href="index.html" style="color: #bd93f9;">Back to Main Profile</a>
-            </p>
+            <div class="resource-category">
+                <h2>Game Development</h2>
+                <ul>
+                    <li><a href="https://learn.unity.com/" target="_blank"><i class="fab fa-unity"></i> Unity Learn</a></li>
+                </ul>
+            </div>
+
+            <div class="resource-category">
+                <h2>Coding Practice</h2>
+                <ul>
+                    <li><a href="https://codeforces.com/" target="_blank"><i class="fas fa-code"></i> Codeforces</a></li>
+                    <li><a href="https://cses.fi/problemset/" target="_blank"><i class="fas fa-tasks"></i> CSES Problem Set</a></li>
+                    <li><a href="https://leetcode.com/" target="_blank"><i class="fas fa-laptop-code"></i> LeetCode</a></li>
+                    <li><a href="https://www.hackerrank.com/" target="_blank"><i class="fab fa-hackerrank"></i> HackerRank</a></li>
+                </ul>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Main Profile</a>
+            </div>
         </div>
     </div>
     <script>
@@ -191,6 +283,17 @@
             document.querySelector('.navbar').addEventListener('mouseleave', function() {
                 updateSlider(activeLink);
             });
+        });
+
+        // Add this new script for fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.bg video');
+            const fallbackBg = document.querySelector('.bg-fallback');
+            
+            if (!video.canPlayType || !video.canPlayType('video/mp4').replace(/no/, '')) {
+                video.style.display = 'none';
+                fallbackBg.style.display = 'block';
+            }
         });
     </script>
 </body>
