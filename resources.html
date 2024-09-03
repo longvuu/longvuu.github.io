@@ -125,6 +125,11 @@
             font-family: Arial, sans-serif;
         }
         .bg {
+            background-image: url('bg/blackhole_by_wlop_dhluyo1.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             position: fixed;
             top: 0;
             left: 0;
@@ -170,20 +175,6 @@
         }
         .navbar a.active {
             color: #ff79c6;
-        }
-
-        /* Add this new style for the fallback background image */
-        .bg-fallback {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            background-image: url('bg/background.jpg');
-            background-size: cover;
-            background-position: center;
-            display: none;
         }
     </style>
 </head>
@@ -283,17 +274,6 @@
             document.querySelector('.navbar').addEventListener('mouseleave', function() {
                 updateSlider(activeLink);
             });
-        });
-
-        // Add this new script for fallback
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.bg video');
-            const fallbackBg = document.querySelector('.bg-fallback');
-            
-            if (!video.canPlayType || !video.canPlayType('video/mp4').replace(/no/, '')) {
-                video.style.display = 'none';
-                fallbackBg.style.display = 'block';
-            }
         });
     </script>
 </body>
