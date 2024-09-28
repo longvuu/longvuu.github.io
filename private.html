@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Page - Vu Duc Long (Herry Vu)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 60px;
+        }
+        .private-content {
+            background-color: rgba(40, 42, 54, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #bd93f9;
+        }
+        #passwordForm, #dataForm {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, textarea, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+        button {
+            background-color: #6272a4;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #8be9fd;
+        }
+        #savedData {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(40, 42, 54, 0.9);
+            padding: 10px 0;
+            z-index: 1000;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .navbar li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .navbar a {
+            color: #f8f8f2;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #bd93f9;
+        }
+        .navbar a.active {
+            color: #ff79c6;
+        }
+        .file-icon {
+            margin-right: 10px;
+        }
+        .file-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        #savedFiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .file-item {
+            background-color: #44475a;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .file-item:hover {
+            background-color: #6272a4;
+        }
+        .file-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .file-name {
+            word-break: break-all;
+        }
+        .file-link {
+            color: #f8f8f2;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .file-note, .file-date {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #bd93f9;
+        }
+        #pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #6272a4;
+            border: none;
+            color: #f8f8f2;
+            cursor: pointer;
+        }
+        #pagination button.active {
+            background-color: #ff79c6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Profile</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="private.html" class="active">Private</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="private-content">
+            <h1>Private Page</h1>
+            <div id="passwordSection">
+                <form id="passwordForm">
+                    <input type="password" id="password" placeholder="Enter password" required>
+                    <button type="submit">Unlock</button>
+                </form>
+            </div>
+            <div id="dataSection" style="display: none;">
+                <form id="dataForm">
+                    <textarea id="privateData" rows="10" placeholder="Enter your private data here"></textarea>
+                    <input type="file" id="fileInput" multiple>
+                    <textarea id="fileNote" rows="3" placeholder="Add a note for this upload (optional)"></textarea>
+                    <button type="submit">Save Data</button>
+                </form>
+                <div id="savedData"></div>
+                <div id="savedFiles"></div>
+                <div id="pagination"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const correctPassword = "2972009"; // Change this to your desired password
+        const passwordSection = document.getElementById("passwordSection");
+        const dataSection = document.getElementById("dataSection");
+        const passwordForm = document.getElementById("passwordForm");
+        const dataForm = document.getElementById("dataForm");
+        const privateDataInput = document.getElementById("privateData");
+        const savedDataDiv = document.getElementById("savedData");
+        const fileInput = document.getElementById("fileInput");
+        const savedFilesDiv = document.getElementById("savedFiles");
+        const fileNoteInput = document.getElementById("fileNote");
+        const paginationDiv = document.getElementById("pagination");
+        const itemsPerPage = 8;
+        let currentPage = 1;
+
+        passwordForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const enteredPassword = document.getElementById("password").value;
+            if (enteredPassword === correctPassword) {
+                passwordSection.style.display = "none";
+                dataSection.style.display = "block";
+                loadSavedData();
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+
+        dataForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const data = privateDataInput.value;
+            localStorage.setItem("privateData", data);
+            
+            const files = fileInput.files;
+            const note = fileNoteInput.value;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileData = e.target.result;
+                    const fileInfo = {
+                        data: fileData,
+                        note: note,
+                        timestamp: new Date().toISOString()
+                    };
+                    localStorage.setItem(`file_${file.name}`, JSON.stringify(fileInfo));
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            fileInput.value = '';
+            fileNoteInput.value = '';
+            loadSavedData();
+        });
+
+        function getFileType(fileName) {
+            const extension = fileName.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(extension)) {
+                return 'image';
+            } else if (['mp4', 'webm', 'ogg', 'avi', 'mov'].includes(extension)) {
+                return 'video';
+            } else if (extension === 'zip') {
+                return 'zip';
+            } else if (extension === 'txt') {
+                return 'text';
+            } else {
+                return 'other';
+            }
+        }
+
+        function getFileIcon(fileType) {
+            switch (fileType) {
+                case 'image': return '<i class="fas fa-image"></i>';
+                case 'video': return '<i class="fas fa-video"></i>';
+                case 'zip': return '<i class="fas fa-file-archive"></i>';
+                case 'text': return '<i class="fas fa-file-alt"></i>';
+                default: return '<i class="fas fa-file"></i>';
+            }
+        }
+
+        function loadSavedData() {
+            const savedData = localStorage.getItem("privateData");
+            if (savedData) {
+                privateDataInput.value = savedData;
+                savedDataDiv.textContent = "Saved data:\n" + savedData;
+            } else {
+                savedDataDiv.textContent = "No saved data.";
+            }
+
+            const savedFiles = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith("file_")) {
+                    const fileName = key.slice(5);
+                    const fileInfo = JSON.parse(localStorage.getItem(key));
+                    savedFiles.push({ fileName, ...fileInfo });
+                }
+            }
+
+            const totalPages = Math.ceil(savedFiles.length / itemsPerPage);
+            displayFiles(savedFiles, currentPage);
+            displayPagination(totalPages);
+        }
+
+        function displayFiles(files, page) {
+            savedFilesDiv.innerHTML = "";
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageFiles = files.slice(start, end);
+
+            pageFiles.forEach(file => {
+                const fileType = getFileType(file.fileName);
+                const fileIcon = getFileIcon(fileType);
+                
+                const fileItem = document.createElement("div");
+                fileItem.className = 'file-item';
+                
+                const fileLink = document.createElement("a");
+                fileLink.href = file.data;
+                fileLink.download = file.fileName;
+                fileLink.className = 'file-link';
+                fileLink.innerHTML = `
+                    <span class="file-icon">${fileIcon}</span>
+                    <span class="file-name">${file.fileName}</span>
+                `;
+                
+                const fileNote = document.createElement("p");
+                fileNote.className = 'file-note';
+                fileNote.textContent = file.note || 'No note';
+
+                const fileDate = document.createElement("p");
+                fileDate.className = 'file-date';
+                fileDate.textContent = new Date(file.timestamp).toLocaleString();
+                
+                fileItem.appendChild(fileLink);
+                fileItem.appendChild(fileNote);
+                fileItem.appendChild(fileDate);
+                savedFilesDiv.appendChild(fileItem);
+            });
+        }
+
+        function displayPagination(totalPages) {
+            paginationDiv.innerHTML = "";
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                pageButton.addEventListener("click", () => {
+                    currentPage = i;
+                    loadSavedData();
+                });
+                if (i === currentPage) {
+                    pageButton.classList.add("active");
+                }
+                paginationDiv.appendChild(pageButton);
+            }
+        }
+    </script>
+</body>
+</html>
