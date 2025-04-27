@@ -13,7 +13,8 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
-  base: '/',
+  // GitHub Pages deployment
+  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
