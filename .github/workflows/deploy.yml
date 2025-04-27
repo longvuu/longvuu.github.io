@@ -35,6 +35,16 @@ jobs:
       - name: Build
         run: npm run build
         
+      - name: Check dist directory
+        run: |
+          if [ -d "dist" ]; then
+            echo "✅ dist directory exists"
+            ls -la dist/
+          else
+            echo "❌ dist directory does not exist"
+            exit 1
+          fi
+        
       - name: Copy CNAME file to dist
         run: cp CNAME dist/ || echo "No CNAME file found"
         
@@ -45,6 +55,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+          name: github-pages
           
   deploy:
     needs: build
@@ -56,3 +67,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+        with:
+          artifact_name: github-pages
